@@ -61,5 +61,20 @@ class dbCon {
       }
       mysqli_close($con);
    }
+
+  public function  user($username,$password) {
+	  $con = $this->dbConnect();
+	  if (!$con) {
+		  die ("�޷���ȡӦ������");
+	  }
+
+	  mysqli_select_db($con, "app_db")or die("数据库访问错误".mysqli_error($con));
+	  $result = mysqli_query($con,"select userid from users where username='$username' and password='$password' limit 1");
+	  $key = mysqli_fetch_array($result);
+
+	  mysqli_close($con);
+
+	  return  $key;
+  }
 }
 ?>
