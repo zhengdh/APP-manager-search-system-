@@ -196,7 +196,7 @@ h1
 <form  action="search.php" method="post">
     <div class="con">
         <input  class="form" type="text" name="keyword">
-        <input class="button" type="submit" value="快来问问你的欧德法则吧">
+        <input class="button" type="submit" value="快来问问神奇海螺吧">
     </div>
 </form>
 
@@ -248,7 +248,7 @@ function on_click(){
 
 <div id=back style="display:none; POSITION:absolute; left:0; top:0; width:100%; height:100%;background-color:ghostwhite;opacity:0.1;filter:alpha(opacity=10);"></div>
 <div id=win style="display:none; POSITION:absolute; left:50%; top:50%; width:600px; height:400px; margin-left:-300px; margin-top:-200px; border:1px solid #3e8e41; background-color:#fafafa;text-align:center;">
-<div class="text" >欢迎登陆</div>
+<div class="text" >欢迎登录</div>
 
 <form name="LoginForm" method="post" action="login.php" onSubmit="return on_click();" >
 <p><label for="username" class="textone">用户名:</label>
@@ -460,7 +460,7 @@ h1:hover
 <form  action="search.php" method="post">
     <div class="con">
         <input  class="form" type="text" name="keyword">
-        <input class="button" type="submit" value="快来问问你的欧德法则吧">
+        <input class="button" type="submit" value="快来问问神奇海螺吧">
     </div>
 </form>
 
@@ -497,17 +497,19 @@ if(! isset($_SESSION['username'])){
 
 if(isset($_SESSION['username'])){
     $name = $_SESSION['username'];
+    $htmlthree = <<<html
+    <a style="text-decoration:none ;font-family:Microsoft YaHei;font-size:20px;"href="my.php" >个人中心</a>
+    <a style="text-decoration:none;font-family:Microsoft YaHei;font-size:20px;"href="index.php?action=logout">退出</a>
+html;
 
-    echo "欢迎",$name;
-    echo '<br><a style="text-decoration:none"href="my.php" >个人中心</a>' ;
-    echo '  <a style="text-decoration:none"href="index.php?action=logout">退出</a> <br />';
-
+    echo'<a style="font-family:Microsoft YaHei;font-size:20px;">欢迎:'.$name.'</a>';
+    echo $htmlthree;
     if(isset($_GET['action']) and  $_GET['action'] == "logout"){
         unset($_SESSION['userid']);
         unset($_SESSION['username']);
         header('Location:index.php');
-        echo '注销登录成功！点击此处 <a style="text-decoration:none"href="index.php">登录</a>';
-        exit;
+       //echo '注销登录成功！点击此处 <a style="text-decoration:none"href="index.php">登录</a>';
+        //exit;
     }
     echo $htmltwo;
 

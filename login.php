@@ -15,6 +15,7 @@ if(!isset($_POST['submit'])){
 $username = htmlspecialchars($_POST['username']);
 $password = MD5($_POST['password']);
 
+
 //包含数据库连接文件
 require 'dbCon.php';
 $dbcon = new dbCon();
@@ -34,9 +35,5 @@ if($result = $key){
 } else {
     exit('登录失败！点击此处 <a style="text-decoration:none"href="javascript:history.back(-1);">返回</a> 重试');
 }
-
-
-
-
 
 ?>

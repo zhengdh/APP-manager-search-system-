@@ -1,5 +1,5 @@
 <?php
-SESSION_START();
+
 class dbCon {
   private $apps;
   
@@ -77,6 +77,7 @@ class dbCon {
 	  return  $key;
   }
 	public function reg($username,$password,$email,$qq) {
+		SESSION_START();
 		$con = $this->dbConnect();
 		if (!$con) {
 			die ("�޷���ȡӦ������");
@@ -103,6 +104,49 @@ class dbCon {
 		}
 
 		mysqli_close($con);
+	}
+
+	public function add_com($data,$name,$com) {
+		session_start();
+		$con = $this->dbConnect();
+		if (!$con) {
+			die ("�޷���ȡӦ������");
+		}
+		mysqli_select_db($con, "app_db")or die("数据库访问错误".mysqli_error($con));
+
+		$sql = "insert into comment(appid,username,comments) values('$data','$name','$com')";
+
+		if(strlen($name)==0){
+			$sql = "insert into comment(appid,username,comments) values('$data','游客','$com')";
+		}
+
+		if(strlen($com)!=0){
+			$con->query($sql);
+		}
+
+
+		mysqli_close($con);
+	}
+
+	public function  get_com($data) {
+		session_start();
+		$con = $this->dbConnect();
+		if (!$con) {
+			die ("�޷���ȡӦ������");
+		}
+		mysqli_select_db($con, "app_db")or die("数据库访问错误".mysqli_error($con));
+		$result = mysqli_query($con,"select * from comment where appid = '$data'");
+		//$com_info = mysqli_fetch_array($result);
+		$c = 0;
+		while($com_info = mysqli_fetch_array($result)){
+			$com_info_res[$c] = $com_info;
+			$c ++;
+		}
+
+
+		mysqli_close($con);
+
+		return  $com_info_res;
 	}
 }
 ?>
